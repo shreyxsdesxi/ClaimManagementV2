@@ -29,6 +29,7 @@ public class MembersController {
 	PremiumServices premiumServices;
 	@Autowired
 	ClaimProxy claimProxy;
+
 	@GetMapping(value = "/viewBills/{policyId}/{MemberId}")
 	public MemberPremium viewBills(@PathVariable int policyId, @PathVariable int MemberId) {
 		Members members1 = membersServices.getMemberById(MemberId);
@@ -53,11 +54,10 @@ public class MembersController {
 		MemberClaim claimStatus = claimProxy.getClaimStatus(policyId, memberId, claimNumber);
 		return claimStatus;
 	}
-	
-	
 
 	@PostMapping(value = "/submitClaim/{policyId}/{memberId}")
-	public MemberClaim submitClaim(@PathVariable int policyId, @PathVariable int memberId, @RequestBody MemberClaim claim) {
+	public MemberClaim submitClaim(@PathVariable int policyId, @PathVariable int memberId,
+			@RequestBody MemberClaim claim) {
 //		RestTemplate rt = new RestTemplate();
 //		HashMap<String, Integer> uriVariables = new HashMap<>();
 //		uriVariables.put("policyId", policyId);
@@ -69,28 +69,26 @@ public class MembersController {
 		MemberClaim submitClaim = claimProxy.submitClaim(policyId, memberId, claim);
 		return submitClaim;
 	}
-	
+
 	@GetMapping(value = "/viewPremium/{memberId}")
-	public List<MemberPremium> viewPremium(@PathVariable int memberId){
+	public List<MemberPremium> viewPremium(@PathVariable int memberId) {
 		Members members1 = membersServices.getMemberById(memberId);
 		Set<MemberPremium> premiumSet = members1.getPremium();
 		List<MemberPremium> premiumList = new ArrayList<>();
-		for(MemberPremium m : premiumSet) {
+		for (MemberPremium m : premiumSet) {
 			premiumList.add(m);
 		}
 		return premiumList;
 	}
-	
+
 	@GetMapping(value = "/getClaims/{memberId}")
-	public MemberClaim[] getAllClaims(@PathVariable int memberId){
-		RestTemplate rt = new RestTemplate();
+	public List<MemberClaim> getAllClaims(@PathVariable int memberId) {
+
 		HashMap<String, Integer> uriVariables = new HashMap<>();
 		uriVariables.put("memberId", memberId);
-		
-		ResponseEntity<MemberClaim[]> forEntity = rt.getForEntity(
-				"http://localhost:8000/getClaims/{memberId}", MemberClaim[].class, uriVariables);
-		MemberClaim[] body = forEntity.getBody();
-		return body;
+		List<MemberClaim> findAllClaimByMemberID = claimProxy.findAllClaimByMemberID(memberId);
+
+		return findAllClaimByMemberID;
 	}
 
 }
