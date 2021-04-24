@@ -52,12 +52,14 @@ public class MemberPortalController {
 //				"http://localhost:9090/api/member-service/viewBills/{policyId}/{MemberId}", MemberPremium.class,
 //				uriVariables, header);
 //		MemberPremium result = forEntity.getBody();
-		
+
 		HttpEntity<String> httpEntity = new HttpEntity<String>(header);
-		
-		ResponseEntity<MemberPremium> exchange = restTemplate.exchange("http://localhost:9090/api/member-service/viewBills/{policyId}/{MemberId}",HttpMethod.GET, httpEntity, MemberPremium.class, uriVariables);
+
+		ResponseEntity<MemberPremium> exchange = restTemplate.exchange(
+				"http://localhost:9090/api/member-service/viewBills/{policyId}/{MemberId}", HttpMethod.GET, httpEntity,
+				MemberPremium.class, uriVariables);
 		MemberPremium result = exchange.getBody();
-		
+
 		map.put("result", result);
 		LOGGER.info("List of Bills: {}", result);
 
@@ -83,14 +85,16 @@ public class MemberPortalController {
 		HashMap<String, Integer> uriVariables = new HashMap<>();
 		uriVariables.put("memberId", memberId);
 
-		//ResponseEntity<MemberPremium[]> forEntity = restTemplate.getForEntity(
-			//	"http://localhost:9090/api/member-service/viewPremium/{memberId}", MemberPremium[].class, uriVariables);
-		//MemberPremium[] result = forEntity.getBody();
-		
+		// ResponseEntity<MemberPremium[]> forEntity = restTemplate.getForEntity(
+		// "http://localhost:9090/api/member-service/viewPremium/{memberId}",
+		// MemberPremium[].class, uriVariables);
+		// MemberPremium[] result = forEntity.getBody();
+
 		HttpEntity<String> entity = new HttpEntity<String>(header);
-		ResponseEntity<MemberPremium[]> exchange = restTemplate.exchange("http://localhost:9090/api/member-service/viewPremium/{memberId}", HttpMethod.GET, entity, MemberPremium[].class, uriVariables);
+		ResponseEntity<MemberPremium[]> exchange = restTemplate.exchange(
+				"http://localhost:9090/api/member-service/viewPremium/{memberId}", HttpMethod.GET, entity,
+				MemberPremium[].class, uriVariables);
 		MemberPremium[] result = exchange.getBody();
-		
 
 		LOGGER.info("result: {}", result);
 
@@ -103,16 +107,26 @@ public class MemberPortalController {
 	@GetMapping(value = "/submitClaim")
 	public String submitClaim(ModelMap map, HttpSession session) {
 
-		String username = (String) session.getAttribute("username");
-		int memberId = Integer.parseInt(username);
+		int memberId = (int) session.getAttribute("userId");
+		String token = (String) session.getAttribute("token");
+
+		LOGGER.info("Token: {}", token);
+
+		String jwtToken = "Bearer " + token;
+
+		HttpHeaders header = new HttpHeaders();
+		header.add("Authorization", jwtToken);
+
+		LOGGER.info("MemberID: {}", memberId);
 
 		HashMap<String, Integer> uriVariables = new HashMap<>();
 		uriVariables.put("memberId", memberId);
 
-		ResponseEntity<MemberPremium[]> forEntity = restTemplate
-				.getForEntity("http://localhost:8001/viewPremium/{memberId}", MemberPremium[].class, uriVariables);
-		MemberPremium[] result = forEntity.getBody();
-
+		HttpEntity<String> entity = new HttpEntity<String>(header);
+		
+		ResponseEntity<MemberPremium[]> exchange = restTemplate.exchange("http://localhost:9090/api/member-service/viewPremium/{memberId}", HttpMethod.GET, entity, MemberPremium[].class, uriVariables);
+		MemberPremium[] result = exchange.getBody();
+		
 		LOGGER.info("result: {}", result);
 
 		map.put("policy", result);
@@ -122,20 +136,36 @@ public class MemberPortalController {
 
 	@PostMapping(value = "/submitClaim")
 	public String submitClaimPost(@RequestParam int amount, @RequestParam int hospitalId, @RequestParam int policyId,
-			ModelMap map) {
+			ModelMap map, HttpSession session) {
 
 		MemberClaim claim = new MemberClaim();
 		claim.setHospitalId(hospitalId);
 		claim.setAmountClaimed(amount);
 
+		int memberId = (int) session.getAttribute("userId");
+		String token = (String) session.getAttribute("token");
+
+		LOGGER.info("Token: {}", token);
+
+		String jwtToken = "Bearer " + token;
+
+		HttpHeaders header = new HttpHeaders();
+		header.add("Authorization", jwtToken);
+
+		LOGGER.info("MemberID: {}", memberId);
+
 		HashMap<String, Integer> uriVariables = new HashMap<>();
-		uriVariables.put("memberId", 1);
+		uriVariables.put("memberId", memberId);
 		uriVariables.put("policyId", policyId);
+		
 
-		MemberClaim postForObject = restTemplate.postForObject(
-				"http://localhost:8001/submitClaim/{policyId}/{memberId}", claim, MemberClaim.class, uriVariables);
+		HttpEntity<MemberClaim> entity = new HttpEntity<MemberClaim>(claim, header);
 
-		map.put("result", postForObject);
+		
+		ResponseEntity<MemberClaim> exchange = restTemplate.exchange("http://localhost:9090/api/member-service/submitClaim/{policyId}/{memberId}", HttpMethod.POST, entity, MemberClaim.class, uriVariables);
+		MemberClaim result = exchange.getBody();
+		
+		map.put("result", result);
 
 		return "submitClaimStatus";
 	}
@@ -145,29 +175,29 @@ public class MemberPortalController {
 		return "login";
 	}
 
-//	@PostMapping(value = "/login")
-//	public String successfulLogin(@RequestParam String username, @RequestParam String password, HttpSession session) {
-//		if(password.equals("password")) {
-//			session.setAttribute("username", username);
-//			return "redirect:/dashboard";
-//		}
-//		else {
-//			return "login";
-//		}
-//	}
-
 	@GetMapping(value = "/viewAllClaims")
 	public String viewAllClaims(ModelMap map, HttpSession session) {
 
-		String username = (String) session.getAttribute("username");
-		int memberId = Integer.parseInt(username);
+		int memberId = (int) session.getAttribute("userId");
+		String token = (String) session.getAttribute("token");
+
+		LOGGER.info("Token: {}", token);
+
+		String jwtToken = "Bearer " + token;
+
+		HttpHeaders header = new HttpHeaders();
+		header.add("Authorization", jwtToken);
 
 		HashMap<String, Integer> uriVariables = new HashMap<>();
 		uriVariables.put("memberId", memberId);
 
-		ResponseEntity<MemberClaim[]> forEntity = restTemplate
-				.getForEntity("http://localhost:8001/getClaims/{memberId}", MemberClaim[].class, uriVariables);
-		MemberClaim[] result = forEntity.getBody();
+		HttpEntity<String> entity = new HttpEntity<String>(header);
+
+
+		ResponseEntity<MemberClaim[]> exchange = restTemplate.exchange(
+				"http://localhost:9090/api/member-service/getClaims/{memberId}", HttpMethod.GET, entity,
+				MemberClaim[].class, uriVariables);
+		MemberClaim[] result = exchange.getBody();
 
 		map.put("claims", result);
 
@@ -178,18 +208,24 @@ public class MemberPortalController {
 	public String getClaimStatus(ModelMap map, HttpSession session, @PathVariable int policyNumber,
 			@PathVariable int claimNumber) {
 
-		String username = (String) session.getAttribute("username");
-		int memberId = Integer.parseInt(username);
+		int memberId = (int) session.getAttribute("userId");
+		String token = (String) session.getAttribute("token");
+
+		String jwtToken = "Bearer " + token;
+
+		HttpHeaders header = new HttpHeaders();
+		header.add("Authorization", jwtToken);
 
 		HashMap<String, Integer> uriVariables = new HashMap<>();
 		uriVariables.put("memberId", memberId);
 		uriVariables.put("policyId", policyNumber);
 		uriVariables.put("claimNumber", claimNumber);
 
-		ResponseEntity<MemberClaim> forEntity = restTemplate.getForEntity(
-				"http://localhost:8001/getClaimStatus/{policyId}/{memberId}/{claimNumber}", MemberClaim.class,
-				uriVariables);
-		MemberClaim result = forEntity.getBody();
+		HttpEntity<String> entity = new HttpEntity<String>(header);
+
+		ResponseEntity<MemberClaim> exchange = restTemplate.exchange("http://localhost:9090/api/member-service/getClaimStatus/{policyId}/{memberId}/{claimNumber}",
+				HttpMethod.GET, entity, MemberClaim.class, uriVariables);
+		MemberClaim result = exchange.getBody();
 
 		map.put("claims", result);
 
@@ -200,11 +236,6 @@ public class MemberPortalController {
 	public String test(HttpSession session) {
 		session.invalidate();
 		return "redirect:/login";
-	}
-
-	@GetMapping("/dashboard")
-	public String dashboard() {
-		return "dashboard";
 	}
 
 	@PostMapping(value = "/login")
@@ -222,7 +253,7 @@ public class MemberPortalController {
 
 		session.setAttribute("userId", userId);
 		session.setAttribute("token", token);
-		return "redirect:/dashboard";
+		return "dashboard";
 
 	}
 
