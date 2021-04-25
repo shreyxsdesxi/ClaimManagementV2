@@ -64,8 +64,9 @@ div.transbox {
 							<label for="exampleInputEmail1">Policy Id</label> <select
 								class="form-control" style="width: 40%" name="policyId"
 								id="policyId">
-								<option value="1">1234</option>
-								<option value="2">5678</option>
+								<c:forEach items="${policy}" var="item">
+									<option value="${item.policyId}">${item.policyId}</option>
+								</c:forEach>
 
 							</select> <small id="emailHelp" class="form-text text-muted">Choose
 								Policy ID</small>

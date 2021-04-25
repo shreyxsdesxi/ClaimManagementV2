@@ -26,7 +26,16 @@ public class Policy {
 	private int premium;
 	private int tenure;
 	private int elegibleAmount;
+	private int policyNumber;
 	
+	public int getPolicyNumber() {
+		return policyNumber;
+	}
+
+	public void setPolicyNumber(int policyNumber) {
+		this.policyNumber = policyNumber;
+	}
+
 	@JsonIgnore
 	@ManyToMany(mappedBy = "policyList", cascade = CascadeType.ALL)
 	private Set<Provider> providerList = new HashSet<>();

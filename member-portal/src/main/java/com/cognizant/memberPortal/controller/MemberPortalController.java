@@ -13,6 +13,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -153,6 +154,7 @@ public class MemberPortalController {
 		header.add("Authorization", jwtToken);
 
 		LOGGER.info("MemberID: {}", memberId);
+		LOGGER.info("Policy ID: {}", policyId);
 
 		HashMap<String, Integer> uriVariables = new HashMap<>();
 		uriVariables.put("memberId", memberId);
@@ -239,22 +241,33 @@ public class MemberPortalController {
 	}
 
 	@PostMapping(value = "/login")
-	public String successfulLogin(@RequestParam String username, @RequestParam String password, HttpSession session) {
+	public String successfulLogin(@RequestParam String username, @RequestParam String password, HttpSession session, ModelMap model) {
 		LoginRequest request = new LoginRequest();
 		request.setUsername(username);
 		request.setPassword(password);
+		try {
+			
+			ResponseEntity<LoginResponse> response = restTemplate.postForEntity(
+					"http://localhost:9090/api/authentication-service/authenticate", request, LoginResponse.class);
+			LoginResponse loginResponse = response.getBody();
+			String token = loginResponse.getToken();
+			User user = loginResponse.getUser();
+			int userId = user.getId().intValue();
 
-		ResponseEntity<LoginResponse> response = restTemplate.postForEntity(
-				"http://localhost:9090/api/authentication-service/authenticate", request, LoginResponse.class);
-		LoginResponse loginResponse = response.getBody();
-		String token = loginResponse.getToken();
-		User user = loginResponse.getUser();
-		int userId = user.getId().intValue();
+			session.setAttribute("userId", userId);
+			session.setAttribute("token", token);
+			return "dashboard";
+			
+		}
+		catch (Exception e) {
+			model.put("error", "Invalid Credentials");
+			return "login";
+		}
 
-		session.setAttribute("userId", userId);
-		session.setAttribute("token", token);
-		return "dashboard";
+
 
 	}
+	
+	
 
 }

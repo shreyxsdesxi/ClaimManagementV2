@@ -79,7 +79,7 @@ public class PolicyController {
 				tempList.add(p);
 			}
 			for (int k = 0; k < tempList.size(); k++) {
-				if (tempList.get(k).getPolicyId() == policyId) {
+				if (tempList.get(k).getPolicyNumber() == policyId) {
 					result.add(allProviders.get(i));
 				}
 			}
@@ -101,7 +101,7 @@ public class PolicyController {
 		String result = "";
 
 		for (int i = 0; i < tempPolicy.size(); i++) {
-			if (tempPolicy.get(i).getPolicyId() == policyId) {
+			if (tempPolicy.get(i).getPolicyNumber() == policyId) {
 				result = tempPolicy.get(i).getBenefits();
 			}
 		}
@@ -124,7 +124,7 @@ public class PolicyController {
 		int result = Integer.MIN_VALUE;
 		
 		for (int i = 0; i < tempPolicy.size(); i++) {
-			if (tempPolicy.get(i).getPolicyId() == policyId) {
+			if (tempPolicy.get(i).getPolicyNumber() == policyId) {
 				result = tempPolicy.get(i).getElegibleAmount();
 			}
 		}
