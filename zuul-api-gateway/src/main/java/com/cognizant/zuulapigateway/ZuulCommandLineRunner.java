@@ -16,7 +16,6 @@ public class ZuulCommandLineRunner implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-		// TODO Auto-generated method stub
 		User user = new User();
 		user.setUsername("shreyas");
 		user.setPassword("$2a$10$R/lZJuT9skteNmAku9Y7aeutxbOKstD5xE5bHOf74M2PHZipyt3yK");

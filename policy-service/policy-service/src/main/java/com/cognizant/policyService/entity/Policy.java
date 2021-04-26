@@ -27,6 +27,7 @@ public class Policy {
 	private int tenure;
 	private int elegibleAmount;
 	private int policyNumber;
+	private String policyName;
 	
 	public int getPolicyNumber() {
 		return policyNumber;
@@ -114,6 +115,14 @@ public class Policy {
 
 	public void setElegibleAmount(int elegibleAmount) {
 		this.elegibleAmount = elegibleAmount;
+	}
+
+	public String getPolicyName() {
+		return policyName;
+	}
+
+	public void setPolicyName(String policyName) {
+		this.policyName = policyName;
 	}
 
 }

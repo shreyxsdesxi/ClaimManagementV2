@@ -35,38 +35,11 @@ public class PolicyController {
 	@Autowired
 	private MemberService memberService;
 
-//	@Autowired
-//	private ClaimService claimService;
-//	
-//	@GetMapping(value = "/{memberId}")
-//	public List<Claim> getClaims(@PathVariable int memberId){
-//		List<Claim> allClaimsWithMemberId = claimService.getAllClaimsWithMemberId(memberId);
-//		LOGGER.info("Claims: {}", allClaimsWithMemberId);
-//		return allClaimsWithMemberId;
-//	}
-
-//	@GetMapping(value = "/test/{id}")
-//	public List<PolicyMember> getPolicy(@PathVariable int id){
-//		Policy policy = policyService.getPolicy(id);
-//		return policyMemberService.findAllPolicy(policy);
-//	}
-//	
-//	@GetMapping(value = "/policy")
-//	public String test() {
-//		
-//		return "From Policy Service";
-//		
-//	}
-
 	@GetMapping(value = "/getChainOfProviders")
 	public List<Provider> findAllProviders() {
 		return providerService.getAllProviders();
 	}
 
-//	@GetMapping(value = "/getChainOfProviders/{location}")
-//	public List<Provider> findAllProvidersByLocation(@PathVariable String location){
-//		return providerService.getAllProvidersByLocation(location);
-//	}
 
 	@GetMapping(value = "/getChainOfProviders/{policyId}")
 	public List<Provider> findAllProvidersByPolicyId(@PathVariable int policyId) {
@@ -130,6 +103,11 @@ public class PolicyController {
 		}
 		return new ResponseEntity<Integer>(result, HttpStatus.OK);
 
+	}
+	
+	@GetMapping("/getProviderById/{id}")
+	public Provider getProviderId(@PathVariable int id) {
+		return providerService.getProviderById(id);
 	}
 
 }

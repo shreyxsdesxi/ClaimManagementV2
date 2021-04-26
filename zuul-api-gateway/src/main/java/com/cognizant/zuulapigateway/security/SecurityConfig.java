@@ -27,7 +27,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		http.headers().frameOptions().disable();
 		http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/authentication-service/**").permitAll()
 		.antMatchers("/api/policy-service/h2-console/**").permitAll()
-		
+		.antMatchers("/api/member-service/h2-console/**").permitAll()
 		.anyRequest().authenticated().and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 	}

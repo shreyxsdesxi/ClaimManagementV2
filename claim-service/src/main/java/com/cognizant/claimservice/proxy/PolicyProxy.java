@@ -9,15 +9,19 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.cognizant.claimservice.model.Provider;
 
-
-
-@FeignClient(name="policy-service")
+@FeignClient(name = "policy-service")
 public interface PolicyProxy {
-	
-	@GetMapping(value="/getEligibleClaimAmount/{policyId}/{memberId}")
+
+	@GetMapping(value = "/getEligibleClaimAmount/{policyId}/{memberId}")
 	public ResponseEntity<Integer> getElegibleClaim(@PathVariable int policyId, @PathVariable int memberId);
+
 	@GetMapping(value = "/getChainOfProviders/{policyId}")
 	public List<Provider> findAllProvidersByPolicyId(@PathVariable int policyId);
 	
+	@GetMapping(value = "/getEligibleBenefits/{policyId}/{memberId}")
+	public ResponseEntity<String> getBenefitsOfPolicy(@PathVariable int policyId, @PathVariable int memberId);
+	
+	@GetMapping("/getProviderById/{id}")
+	public Provider getProviderId(@PathVariable int id);
 
 }

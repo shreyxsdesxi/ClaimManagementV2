@@ -8,6 +8,8 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableFeignClients
+//@EnableHystrix
+
 public class MemberServiceApplication {
 
 	public static void main(String[] args) {

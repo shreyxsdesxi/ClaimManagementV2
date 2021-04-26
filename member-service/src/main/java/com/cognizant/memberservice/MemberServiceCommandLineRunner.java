@@ -33,8 +33,8 @@ public class MemberServiceCommandLineRunner implements CommandLineRunner{
 		 member.setEmail("889157@cognizant.com");
 
 		 Members member1=new Members();
-		 member1.setFirstname("Rushikesh");
-		 member1.setLastname("Chaudhary");
+		 member1.setFirstname("Harvey");
+		 member1.setLastname("Specter");
 		 member1.setAge(22);
 		 member1.setEmail("88989@cognizant.com");
 		 
@@ -131,32 +131,43 @@ public class MemberServiceCommandLineRunner implements CommandLineRunner{
 		membersRepository.save(member);
 		premiumRepository.save(premium);
 		premiumRepository.save(premium1);
-
 		
 		member1.getPremium().add(premium2);
 		premium2.setMembers(member1);
+		member1.getPremium().add(premium3);
+		premium3.setMembers(member1);
+		membersRepository.save(member1);
+		premiumRepository.save(premium2);
+		premiumRepository.save(premium3);
 		
-		member2.getPremium().add(premium3);
-		premium3.setMembers(member2);
+		
 		member2.getPremium().add(premium4);
 		premium4.setMembers(member2);
 		
-		member3.getPremium().add(premium5);
-		premium5.setMembers(member3);
-		member3.getPremium().add(premium6);
-		premium6.setMembers(member3);
-		
-		member4.getPremium().add(premium7);
-		premium7.setMembers(member4);
-		member4.getPremium().add(premium8);
-		premium8.setMembers(member4);
+//		member1.getPremium().add(premium2);
+//		premium2.setMembers(member1);
+//		
+//		member2.getPremium().add(premium3);
+//		premium3.setMembers(member2);
+//		member2.getPremium().add(premium4);
+//		premium4.setMembers(member2);
+//		
+//		member3.getPremium().add(premium5);
+//		premium5.setMembers(member3);
+//		member3.getPremium().add(premium6);
+//		premium6.setMembers(member3);
+//		
+//		member4.getPremium().add(premium7);
+//		premium7.setMembers(member4);
+//		member4.getPremium().add(premium8);
+//		premium8.setMembers(member4);
 //		
 		membersRepository.save(member1);
 		membersRepository.save(member2);
 		membersRepository.save(member3);
 		membersRepository.save(member4);
 		
-				premiumRepository.save(premium2);
+		premiumRepository.save(premium2);
 		premiumRepository.save(premium3);
 		premiumRepository.save(premium4);
 		premiumRepository.save(premium5);

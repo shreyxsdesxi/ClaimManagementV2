@@ -75,14 +75,18 @@ public class ClaimController {
 		ResponseEntity<Integer> elegibleClaim = policyProxy.getElegibleClaim(policyId, memberId);
 		Integer elegibleAmount = elegibleClaim.getBody();
 		
+		ResponseEntity<String> benefitsOfPolicyEntity = policyProxy.getBenefitsOfPolicy(policyId, memberId);
+		String benefitsOfPolicy = benefitsOfPolicyEntity.getBody();
+		
 		int claimedAmount = claim.getAmountClaimed();
 		int hospitalId  = claim.getHospitalId();
+		String benefits = claim.getBenifits();
 		
 		HashMap<String, Integer> uriVariables2 = new HashMap<>();
 		uriVariables2.put("id", hospitalId);
 		
 //		ResponseEntity<Provider> forHospital = rt.getForEntity("http://localhost:8002/getProviders/{id}", Provider.class, uriVariables2);
-//		Provider hospital = forHospital.getBody();
+		Provider hospital = policyProxy.getProviderId(hospitalId);
 		
 //		LOGGER.info("Hospital name: {}", hospital);
 		
@@ -93,10 +97,15 @@ public class ClaimController {
 		
 		boolean claimFlag = false;
 		boolean hospitalFlag = false;
+		boolean benefitsFlag = false;
 		String hospitalName = "";
 		
 		if(elegibleAmount >= claimedAmount) {
 			claimFlag = true;
+		}
+		
+		if(benefits.equalsIgnoreCase(benefitsOfPolicy)) {
+			benefitsFlag = true;
 		}
 		
 		for(int i = 0; i < findAllProvidersByPolicyId.size(); i++) {
@@ -113,10 +122,10 @@ public class ClaimController {
 			result = "Insufficient Claim details";
 		}
 		else {
-			if(claimFlag == true && hospitalFlag ==true) {
+			if(claimFlag == true && hospitalFlag ==true && benefitsFlag == true) {
 				result = "Pending Action";
 			}
-			else if(claimFlag == false || hospitalFlag == false){
+			else if(claimFlag == false || hospitalFlag == false || benefitsFlag == false){
 				result = "Claim Rejected";
 			}
 			else {
@@ -128,7 +137,7 @@ public class ClaimController {
 		claim.setPolicyNumber(policyId);
 		claim.setMemberId(memberId);
 		claim.setHospitalId(hospitalId);
-//		claim.setHospitalDetails(hospital.getHospitalName());
+		claim.setHospitalDetails(hospital.getHospitalName());
 		
 		
 		claimService.saveClaim(claim);

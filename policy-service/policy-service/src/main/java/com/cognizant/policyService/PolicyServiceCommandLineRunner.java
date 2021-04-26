@@ -55,6 +55,9 @@ public class PolicyServiceCommandLineRunner implements CommandLineRunner{
 				"Maximum sum assured");
 		policy.setElegibleAmount(10000);
 		policy.setPolicyNumber(1234);
+		policy.setPolicyName("HDFC Health Insurance");
+		policy.setPremium(10000);
+		policy.setBenefits("Cashless Medical Treatment");
 		
 		Policy policy2 = new Policy();
 		policy2.setBenefits("Up to 6 family members " + 
@@ -63,6 +66,9 @@ public class PolicyServiceCommandLineRunner implements CommandLineRunner{
 				"Maximum sum assured");
 		policy2.setElegibleAmount(620000);
 		policy2.setPolicyNumber(5678);
+		policy2.setPolicyName("SBI Health Insurance");
+		policy2.setPremium(5000);
+		policy2.setBenefits("Coverage of Pre and Post-Hospitalization Expenses");
 		
 		Policy policy3 = new Policy();
 		policy3.setBenefits("Up to 6 family members " + 
@@ -71,6 +77,9 @@ public class PolicyServiceCommandLineRunner implements CommandLineRunner{
 				"Maximum sum assured");
 		policy3.setElegibleAmount(695202);
 		policy3.setPolicyNumber(9101);
+		policy3.setPolicyName("ICICI Health Insurance");
+		policy3.setPremium(2000);
+		policy3.setBenefits("Ambulance Fee");
 		
 		Policy policy4 = new Policy();
 		policy4.setBenefits("Up to 6 family members " + 
@@ -79,6 +88,9 @@ public class PolicyServiceCommandLineRunner implements CommandLineRunner{
 				"Maximum sum assured");
 		policy4.setElegibleAmount(50000);
 		policy4.setPolicyNumber(1213);
+		policy4.setPolicyName("Generic Health Insurance");
+		policy4.setPremium(7000);
+		policy4.setBenefits("Room Rent Sub-limits in Your Health Insurance Plan");
 		
 		Policy policy5 = new Policy();
 		policy5.setBenefits("Up to 6 family members " + 
@@ -87,7 +99,9 @@ public class PolicyServiceCommandLineRunner implements CommandLineRunner{
 				"Maximum sum assured");
 		policy5.setElegibleAmount(20000);
 		policy5.setPolicyNumber(1415);
-		
+		policy5.setPolicyName("Generic Health Insurance 2");
+		policy5.setPremium(6000);
+		policy5.setBenefits("Co-Payment");
 		
 		policy.getProviderList().add(provider);
 		policy.getProviderList().add(provider2);
