@@ -29,7 +29,7 @@ div.transbox {
         div.transbox1{
            
             width: 1350px;
-           margin-top:15%;
+           margin-top:100px;
            border: 6px solid black;
            
          
@@ -38,6 +38,11 @@ div.transbox {
            
            
         }
+        form{
+        	height: 300px;
+        	margin-top: 50px;
+        }
+       
        
        
     </style>
@@ -57,7 +62,7 @@ div.transbox {
            
            <div  class="collapse navbar-collapse justify-content-end" id="navBarCollapse">
            <ul  class="navbar-nav ">
-           </li></ul>
+           </ul>
            </div>
            </div>
        </nav>
@@ -66,11 +71,10 @@ div.transbox {
     <div id ="form" >
   <div class="transbox rounded-3">
   <div id="login">
-        <h3 class="text-center text-white pt-5">Login form</h3>
         <div class="container">
             <div id="login-row" class="row justify-content-center align-items-center">
-                <div id="login-column" class="col-md-6">
-                    <div id="login-box" class="col-md-12">
+                <div id="login-column">
+                    <div id="login-box">
                         <form id="login-form" class="form" action="" method="post">
                             <h3 class="text-center text-primary">Login</h3>
                             <div class="form-group">
@@ -81,13 +85,12 @@ div.transbox {
                                 <label for="password" class="text-white">Password:</label><br>
                                 <input type="password" name="password" id="password" class="form-control">
                             </div>
+                            <br>
                             <div class="form-group">
                                 <label for="remember-me" class="text-white"><span>${error}</span> </label><br>
-                                <input type="submit" name="submit" class="btn btn-primary btn-md" value="submit">
+                                <input type="submit" name="submit" class="btn btn-primary btn-md" value="Submit">
                             </div>
-                            <div id="register-link" class="text-right">
-                                <a href="#" class="text-white">Register here</a>
-                            </div>
+                 
                         </form>
                     </div>
                 </div>

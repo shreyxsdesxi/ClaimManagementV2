@@ -137,11 +137,14 @@ public class MemberPortalController {
 
 	@PostMapping(value = "/submitClaim")
 	public String submitClaimPost(@RequestParam int amount, @RequestParam int hospitalId, @RequestParam int policyId,
-			ModelMap map, HttpSession session) {
+			ModelMap map, HttpSession session, @RequestParam String benefits) {
 
+		LOGGER.info("Benefit availed: {}", benefits);
+		
 		MemberClaim claim = new MemberClaim();
 		claim.setHospitalId(hospitalId);
 		claim.setAmountClaimed(amount);
+		claim.setBenifits(benefits);
 
 		int memberId = (int) session.getAttribute("userId");
 		String token = (String) session.getAttribute("token");

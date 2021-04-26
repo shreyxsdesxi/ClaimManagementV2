@@ -38,7 +38,7 @@
 				<ul class="navbar-nav ">
 
 					<li class="nav-item"><a class="nav-link text-white"
-						href="signup">Logout</a></li>
+						href="/logout">Logout</a></li>
 				</ul>
 			</div>
 		</div>

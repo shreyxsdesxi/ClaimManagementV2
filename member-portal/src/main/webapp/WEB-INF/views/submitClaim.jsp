@@ -12,16 +12,15 @@
 <title>submit claim</title>
 <script src='https://kit.fontawesome.com/a076d05399.js'></script>
 <style>
-div.transbox {
-	width: 400px;
-	padding: 10px;
-	border: 5px solid white;
-	margin: 5%;
-	opacity: 1.0;
-	background-image:
-		url("https://c8.alamy.com/comp/M5KY2Y/blue-wood-background-texture-with-natural-patterns-M5KY2Y.jpg");
-	height: 400px;
-}
+	footer{
+		bottom: 0;
+		position: fixed;
+		height: 60px;
+		width: 100%
+	}
+	form{
+		margin-bottom: 50px;
+	}
 </style>
 </head>
 <body
@@ -39,12 +38,10 @@ div.transbox {
 			<div class="collapse navbar-collapse justify-content-end"
 				id="navBarCollapse">
 				<ul class="navbar-nav ">
+					
 					<li class="nav-item"><a class="nav-link text-white"
-						href="home">Policies</a></li>
-					<li class="nav-item"><a class="nav-link text-white"
-						href="login">Login</a>
-					<li class="nav-item"><a class="nav-link text-white"
-						href="signup">Signup</a></li>
+						href="/login">Logout</a>
+					
 				</ul>
 			</div>
 		</div>
@@ -54,14 +51,13 @@ div.transbox {
 			<div class="col-sm">
 				<img
 					src="https://thumbs.dreamstime.com/b/doctor-sympathetic-work-clothes-pointing-to-poster-51180694.jpg"
-					style="height: 500px">
+					style="height: 450px">
 			</div>
-			<div class="transbox rounded-3">
 				<div class="col-sm">
 					<h2>Submit A Claim</h2>
 					<form method="post" action="/submitClaim">
 						<div class="form-group">
-							<label for="exampleInputEmail1">Policy Id</label> <select
+							<label for="exampleInputEmail1"><b>Policy Id</b></label> <select
 								class="form-control" style="width: 40%" name="policyId"
 								id="policyId">
 								<c:forEach items="${policy}" var="item">
@@ -72,7 +68,7 @@ div.transbox {
 								Policy ID</small>
 						</div>
 						<div class="form-group">
-							<label for="exampleInputEmail1">Hospital</label> <select
+							<label for="exampleInputEmail1"><b>Hospital</b></label> <select
 								class="form-control" style="width: 40%" name="hospitalId"
 								id="hospitalId">
 								<option value="1">Newlife Hospital, Kolkata</option>
@@ -84,17 +80,43 @@ div.transbox {
 								Hospital</small>
 						</div>
 						<div class="form-group">
-							<label for="exampleInputEmail1">Amount</label> <input
+							<label for="exampleInputEmail1"><b>Amount</b></label> <input
 								type="number" name="amount" id="amount" class="form-control"
 								placeholder="Amount" style="width: 40%"> <small
 								id="emailHelp" class="form-text text-muted">Enter claim
 								amount</small>
 						</div>
+						<div class="form-group">
+							<label for="benefits"><b>Benefits</b></label>
+							<br> 
+							<input
+								type="radio" name="benefits" id="benefits"
+								  value="Cashless Medical Treatment" style="margin-right: 10px;">Cashless Medical Treatment
+							<br>
+							<input
+								type="radio" name="benefits" id="benefits" 
+								  value="Coverage of Pre and Post-Hospitalization Expenses" style="margin-right: 10px;">Coverage of Pre and Post-Hospitalization Expenses
+							<br>
+								<input
+								type="radio" name="benefits" id="benefits" 
+								  value="Ambulance Fee" style="margin-right: 10px;">Ambulance Fee
+							<br>
+								<input
+								type="radio" name="benefits" id="benefits" 
+								  value="Room Rent Sub-limits in Your Health Insurance Plan" style="margin-right: 10px;">Room Rent Sub-limits in Your Health Insurance Plan
+							<br>	
+								<input
+								type="radio" name="benefits" id="benefits" 
+								  value="Co-Payment" style="margin-right: 10px;">Co-Payment
+							<br>	
+								 <small
+								id="emailHelp" class="form-text text-muted" >Choose benefit to be availed
+								</small>
+						</div>
 						<br>
 						<button type="submit" class="btn btn-primary">Submit</button>
 					</form>
 				</div>
-			</div>
 		</div>
 	</div>
 	<script

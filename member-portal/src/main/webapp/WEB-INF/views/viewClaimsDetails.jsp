@@ -74,6 +74,10 @@
 						<td>Benefits</td>
 						<td>${claims.benifits }</td>
 					</tr>
+					<tr>
+						<td>Status</td>
+						<td>${claims.status }</td>
+					</tr>
 				
 			</tbody>
 		</table>

@@ -13,12 +13,12 @@
 	crossorigin="anonymous">
 <style>
 .container {
-	margin-top: 50px;
+	margin-top: 20px;
+	
 }
 footer {
-	height: 80px;
+	height: 60px;
 	bottom: 0;
-	position: fixed;
 	background-color: #989898;
 	width: 100%;
 	
@@ -31,7 +31,7 @@ footer p{
 
 #background{
 	background-image: url("https://www.outsourcedataworks.com/assets/img/blog/banner/tips-to-speed-up-medical-claims-payments-inner.jpg");
-	height: 300px;
+	height: 250px;
 	background-size: cover;
 	background-position: center;
 }
@@ -70,7 +70,7 @@ border: 0;
 	</nav>
 	
 	<div id="background">
-		<input type="text" size="100%" placeholder="Search Policies"> 		
+				
 	</div>
 	<div class="container">
 		
