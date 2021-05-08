@@ -2,12 +2,14 @@ package com.cognizant.claimservice;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import com.cognizant.claimservice.model.Claims;
 import com.cognizant.claimservice.repository.ClaimRepo;
 
 @Component
+@Profile("test")
 public class ClaimServiceCommandLineRunner implements CommandLineRunner {
 	
 	@Autowired

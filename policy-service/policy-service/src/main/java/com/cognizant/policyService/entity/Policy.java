@@ -29,6 +29,13 @@ public class Policy {
 	private int policyNumber;
 	private String policyName;
 	
+	@Override
+	public String toString() {
+		return "Policy [policyId=" + policyId + ", benefits=" + benefits + ", premium=" + premium + ", tenure=" + tenure
+				+ ", elegibleAmount=" + elegibleAmount + ", policyNumber=" + policyNumber + ", policyName=" + policyName
+				+ ", providerList=" + providerList + ", memberList=" + memberList + "]";
+	}
+
 	public int getPolicyNumber() {
 		return policyNumber;
 	}

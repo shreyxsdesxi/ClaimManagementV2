@@ -109,5 +109,11 @@ public class PolicyController {
 	public Provider getProviderId(@PathVariable int id) {
 		return providerService.getProviderById(id);
 	}
+	
+	@GetMapping("/test")
+	public String test() {
+		return "test";
+	}
+	
 
 }

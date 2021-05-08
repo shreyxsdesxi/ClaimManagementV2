@@ -57,7 +57,7 @@ public class MemberPortalController {
 		HttpEntity<String> httpEntity = new HttpEntity<String>(header);
 
 		ResponseEntity<MemberPremium> exchange = restTemplate.exchange(
-				"http://localhost:9090/api/member-service/viewBills/{policyId}/{MemberId}", HttpMethod.GET, httpEntity,
+				"http://3.20.239.244:9091/api/member-service/viewBills/{policyId}/{MemberId}", HttpMethod.GET, httpEntity,
 				MemberPremium.class, uriVariables);
 		MemberPremium result = exchange.getBody();
 
@@ -93,7 +93,7 @@ public class MemberPortalController {
 
 		HttpEntity<String> entity = new HttpEntity<String>(header);
 		ResponseEntity<MemberPremium[]> exchange = restTemplate.exchange(
-				"http://localhost:9090/api/member-service/viewPremium/{memberId}", HttpMethod.GET, entity,
+				"http://3.20.239.244:9091/api/member-service/viewPremium/{memberId}", HttpMethod.GET, entity,
 				MemberPremium[].class, uriVariables);
 		MemberPremium[] result = exchange.getBody();
 
@@ -125,7 +125,7 @@ public class MemberPortalController {
 
 		HttpEntity<String> entity = new HttpEntity<String>(header);
 		
-		ResponseEntity<MemberPremium[]> exchange = restTemplate.exchange("http://localhost:9090/api/member-service/viewPremium/{memberId}", HttpMethod.GET, entity, MemberPremium[].class, uriVariables);
+		ResponseEntity<MemberPremium[]> exchange = restTemplate.exchange("http://3.20.239.244:9091/api/member-service/viewPremium/{memberId}", HttpMethod.GET, entity, MemberPremium[].class, uriVariables);
 		MemberPremium[] result = exchange.getBody();
 		
 		LOGGER.info("result: {}", result);
@@ -167,7 +167,7 @@ public class MemberPortalController {
 		HttpEntity<MemberClaim> entity = new HttpEntity<MemberClaim>(claim, header);
 
 		
-		ResponseEntity<MemberClaim> exchange = restTemplate.exchange("http://localhost:9090/api/member-service/submitClaim/{policyId}/{memberId}", HttpMethod.POST, entity, MemberClaim.class, uriVariables);
+		ResponseEntity<MemberClaim> exchange = restTemplate.exchange("http://3.20.239.244:9091/api/member-service/submitClaim/{policyId}/{memberId}", HttpMethod.POST, entity, MemberClaim.class, uriVariables);
 		MemberClaim result = exchange.getBody();
 		
 		map.put("result", result);
@@ -200,7 +200,7 @@ public class MemberPortalController {
 
 
 		ResponseEntity<MemberClaim[]> exchange = restTemplate.exchange(
-				"http://localhost:9090/api/member-service/getClaims/{memberId}", HttpMethod.GET, entity,
+				"http://3.20.239.244:9091/api/member-service/getClaims/{memberId}", HttpMethod.GET, entity,
 				MemberClaim[].class, uriVariables);
 		MemberClaim[] result = exchange.getBody();
 
@@ -228,7 +228,7 @@ public class MemberPortalController {
 
 		HttpEntity<String> entity = new HttpEntity<String>(header);
 
-		ResponseEntity<MemberClaim> exchange = restTemplate.exchange("http://localhost:9090/api/member-service/getClaimStatus/{policyId}/{memberId}/{claimNumber}",
+		ResponseEntity<MemberClaim> exchange = restTemplate.exchange("http://3.20.239.244:9091/api/member-service/getClaimStatus/{policyId}/{memberId}/{claimNumber}",
 				HttpMethod.GET, entity, MemberClaim.class, uriVariables);
 		MemberClaim result = exchange.getBody();
 
@@ -251,7 +251,7 @@ public class MemberPortalController {
 		try {
 			
 			ResponseEntity<LoginResponse> response = restTemplate.postForEntity(
-					"http://localhost:9090/api/authentication-service/authenticate", request, LoginResponse.class);
+					"http://3.20.239.244:9091/api/authentication-service/authenticate", request, LoginResponse.class);
 			LoginResponse loginResponse = response.getBody();
 			String token = loginResponse.getToken();
 			User user = loginResponse.getUser();

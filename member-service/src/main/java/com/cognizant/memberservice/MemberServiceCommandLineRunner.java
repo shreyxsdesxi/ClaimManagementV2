@@ -8,6 +8,7 @@ import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import com.cognizant.memberservice.model.MemberPremium;
@@ -16,6 +17,7 @@ import com.cognizant.memberservice.repository.MembersRepository;
 import com.cognizant.memberservice.repository.MemberPremiumRepository;
 
 @Component
+@Profile("test")
 public class MemberServiceCommandLineRunner implements CommandLineRunner{
 	@Autowired
 	private MembersRepository membersRepository;

@@ -5,6 +5,7 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import com.cognizant.policyService.entity.Member;
@@ -15,6 +16,7 @@ import com.cognizant.policyService.repository.PolicyRepository;
 import com.cognizant.policyService.repository.ProviderRepository;
 
 @Component
+@Profile("test")
 public class PolicyServiceCommandLineRunner implements CommandLineRunner{
 	
 	@Autowired
